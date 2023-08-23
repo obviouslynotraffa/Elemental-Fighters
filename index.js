@@ -21,8 +21,8 @@ const background = new Sprite({
 //creating characters
 const player = new Fighter({
     position: {
-        x: 10,
-        y: 0
+        x: canvas.width/4,
+        y: 100
     },
     velocity: {
         x: 0,
@@ -39,7 +39,7 @@ const player = new Fighter({
 
 const enemy = new Fighter({
     position: {
-        x: 400,
+        x: canvas.width*3/4,
         y: 100
     },
     velocity: {
