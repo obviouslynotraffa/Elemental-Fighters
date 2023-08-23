@@ -15,13 +15,13 @@ const background = new Sprite({
       x: 0,
       y: 0
     },
-    imageSrc: './assets/background.png'
+    imageSrc: './assets/background/background.png'
 })
 
 //creating characters
 const player = new Fighter({
     position: {
-        x: 0,
+        x: 10,
         y: 0
     },
     velocity: {
