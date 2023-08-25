@@ -32,7 +32,11 @@ const player = new Fighter({
     offset: {
         x: 0,
         y: 0
-    }
+    },
+    imageSrc : './assets/fighters/wind_fighter/wind_SpriteSheet_288x128.png',
+    //lines: 13,
+    framesMax: 30
+    
 })
 
 
@@ -87,7 +91,7 @@ function animate() {
     c.fillRect(0,0, canvas.width, canvas.height)
     background.update()
     player.update()
-    enemy.update()
+    //enemy.update()
 
     player.velocity.x = 0
     enemy.velocity.x = 0
