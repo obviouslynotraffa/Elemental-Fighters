@@ -39,7 +39,27 @@ const player = new Fighter({
     offset: {
         x: 330,
         y: 167
+    },
+    sprites: {
+        idle_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/idle.png',
+            framesMax: 8 
+        },
+        idle_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/idle.png',
+            framesMax: 8 
+        },
+        run_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/run.png',
+            framesMax: 8 
+        },
+        run_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/run.png',
+            framesMax: 8 
+        }
+
     }
+
     
 })
 
@@ -101,13 +121,18 @@ function animate() {
     enemy.velocity.x = 0
     
     //player movement
+
+    player.image = player.sprites.idle_dx.image
+    
     if(keys.a.pressed && player.lastKey === 'a')
     {
         player.velocity.x = -5
+        player.image = player.sprites.run_sx.image
     }
     else if (keys.d.pressed && player.lastKey === 'd')
     {
         player.velocity.x = 5
+        player.image = player.sprites.run_dx.image
     }
 
     //enemy movement
