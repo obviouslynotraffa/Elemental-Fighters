@@ -33,9 +33,13 @@ const player = new Fighter({
         x: 0,
         y: 0
     },
-    imageSrc : './assets/fighters/wind_fighter/wind_SpriteSheet_288x128.png',
-    //lines: 13,
-    framesMax: 30
+    imageSrc : './assets/fighters/wind_fighter/full_PNG/idle.png',
+    framesMax: 8,
+    scale: 2.5,
+    offset: {
+        x: 330,
+        y: 167
+    }
     
 })
 
