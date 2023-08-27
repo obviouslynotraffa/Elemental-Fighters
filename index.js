@@ -153,15 +153,21 @@ function animate() {
 
 
     //jumping
-    if(player.velocity.y < 0 && player.lastKey === "d")
-    {
-        player.switchSprite('jump_dx')
-    } else if (player.velocity.y < 0 && player.lastKey === "a") {
+    if(player.velocity.y < 0 && player.lastKey === "a"){
         player.switchSprite('jump_sx')
-    } else if(player.velocity.y > 0 && player.lastKey === "d"){
-        player.switchSprite('fall_dx')
-    } else if (player.velocity.y > 0 && player.lastKey === "a"){
+    } else if (player.velocity.y < 0 && player.lastKey === "d") {
+        player.switchSprite('jump_dx')
+    } else if (player.velocity.y < 0) {
+        player.switchSprite('jump_dx')
+    }
+
+    //falling
+    if(player.velocity.y > 0 && player.lastKey === "a"){
         player.switchSprite('fall_sx')
+    } else if (player.velocity.y > 0 && player.lastKey === "d") {
+        player.switchSprite('fall_dx')
+    } else if (player.velocity.y > 0) {
+        player.switchSprite('fall_dx')
     }
 
 
