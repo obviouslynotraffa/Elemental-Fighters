@@ -56,6 +56,22 @@ const player = new Fighter({
         run_sx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/run.png',
             framesMax: 8 
+        },
+        jump_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/jump.png',
+            framesMax: 3 
+        },
+        jump_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/jump.png',
+            framesMax: 3 
+        },
+        fall_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/fall.png',
+            framesMax: 3 
+        },
+        fall_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/fall.png',
+            framesMax: 3 
         }
 
     }
@@ -121,20 +137,35 @@ function animate() {
     enemy.velocity.x = 0
     
     //player movement
-
-    player.image = player.sprites.idle_dx.image
-    
     if(keys.a.pressed && player.lastKey === 'a')
     {
         player.velocity.x = -5
-        player.image = player.sprites.run_sx.image
+        player.switchSprite('run_sx')
     }
     else if (keys.d.pressed && player.lastKey === 'd')
     {
         player.velocity.x = 5
-        player.image = player.sprites.run_dx.image
+        player.switchSprite('run_dx')
+    } else {
+        //to do: switch based on enemy postion
+        player.switchSprite('idle_dx')
     }
 
+
+    //jumping
+    if(player.velocity.y < 0 && player.lastKey === "d")
+    {
+        player.switchSprite('jump_dx')
+    } else if (player.velocity.y < 0 && player.lastKey === "a") {
+        player.switchSprite('jump_sx')
+    } else if(player.velocity.y > 0 && player.lastKey === "d"){
+        player.switchSprite('fall_dx')
+    } else if (player.velocity.y > 0 && player.lastKey === "a"){
+        player.switchSprite('fall_sx')
+    }
+
+
+    
     //enemy movement
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
     {

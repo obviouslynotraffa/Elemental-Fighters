@@ -82,7 +82,7 @@ class Fighter extends Sprite {
 
         this.framesCurrent = 0
         this.framesElapsed = 0
-        this.framesHold = 5
+        this.framesHold = 7
 
         this.sprites = sprites
 
@@ -109,6 +109,7 @@ class Fighter extends Sprite {
 
         if(this.position.y + this.height + this.velocity.y >= 525 ){
             this.velocity.y = 0
+            this.position.y = 375.69
         } else {
             this.velocity.y += gravity
         }
@@ -120,6 +121,84 @@ class Fighter extends Sprite {
             setTimeout(() => {
                 this.isAttacking = false
             }, 100)
+    }
+
+
+    switchSprite(sprite){
+
+        switch(sprite){
+
+            case "idle_dx": 
+                if(this.image !== this.sprites.idle_dx.image){
+                    this.image = this.sprites.idle_dx.image
+                    this.framesMax = this.sprites.idle_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+
+            case "idle_sx": 
+                if(this.image !== this.sprites.idle_sx.image){
+                    this.image = this.sprites.idle_sx.image
+                    this.framesMax = this.sprites.idle_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+
+            case "run_dx":
+                if(this.image !== this.sprites.run_dx.image){
+                    this.image = this.sprites.run_dx.image
+                    this.framesMax = this.sprites.run_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+
+            case "run_sx":
+                if(this.image !== this.sprites.run_sx.image){
+                    this.image = this.sprites.run_sx.image
+                    this.framesMax = this.sprites.run_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+
+            case "jump_dx":
+                if(this.image !== this.sprites.jump_dx.image){
+                    this.image = this.sprites.jump_dx.image
+                    this.framesMax = this.sprites.jump_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+            
+                
+            case "jump_sx":
+                if(this.image !== this.sprites.jump_sx.image){
+                    this.image = this.sprites.jump_sx.image
+                    this.framesMax = this.sprites.jump_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break    
+
+
+            case "fall_dx":
+                if(this.image !== this.sprites.fall_dx.image){
+                    this.image = this.sprites.fall_dx.image
+                    this.framesMax = this.sprites.fall_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break    
+
+
+             case "fall_sx":
+                if(this.image !== this.sprites.fall_sx.image){
+                    this.image = this.sprites.fall_sx.image
+                    this.framesMax = this.sprites.fall_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break   
+        }
     }
 
     
