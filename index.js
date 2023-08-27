@@ -165,7 +165,7 @@ function animate() {
     }
 
 
-    
+
     //enemy movement
     if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
     {
@@ -225,6 +225,7 @@ window.addEventListener('keydown', (event) => {
             break
         case 'w':
             keys.w.pressed=true;
+            if(player.velocity.y === 0)
             player.velocity.y = -18
             break
         case ' ':
