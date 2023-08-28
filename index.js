@@ -80,6 +80,14 @@ const player = new Fighter({
         attack_sx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/attack.png',
             framesMax: 8 
+        },
+        air_attack_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/air_attack.png',
+            framesMax: 7 
+        },
+        air_attack_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/air_attack.png',
+            framesMax: 7 
         }
 
     }
