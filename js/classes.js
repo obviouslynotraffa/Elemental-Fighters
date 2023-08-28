@@ -117,6 +117,7 @@ class Fighter extends Sprite {
     }
 
     attack(){
+        this.switchSprite('attack_dx')
         this.isAttacking = true
             setTimeout(() => {
                 this.isAttacking = false
@@ -125,6 +126,12 @@ class Fighter extends Sprite {
 
 
     switchSprite(sprite){
+
+        if(this.image === this.sprites.attack_dx.image
+            && this.framesCurrent  < this.sprites.attack_dx.framesMax -1) return
+
+        if(this.image === this.sprites.attack_sx.image
+            && this.framesCurrent  < this.sprites.attack_sx.framesMax -1) return    
 
         switch(sprite){
 
@@ -198,6 +205,26 @@ class Fighter extends Sprite {
                     this.framesCurrent = 0
                 }
                 break   
+
+
+
+            case "attack_dx":
+                if(this.image !== this.sprites.attack_dx.image){
+                    this.image = this.sprites.attack_dx.image
+                    this.framesMax = this.sprites.attack_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break 
+
+
+
+            case "attack_sx":
+                if(this.image !== this.sprites.attack_sx.image){
+                    this.image = this.sprites.attack_sx.image
+                    this.framesMax = this.sprites.attack_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break 
         }
     }
 
