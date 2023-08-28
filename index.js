@@ -88,6 +88,14 @@ const player = new Fighter({
         air_attack_sx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/air_attack.png',
             framesMax: 7 
+        },
+        roll_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/roll.png',
+            framesMax: 6
+        },
+        roll_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/roll.png',
+            framesMax: 6
         }
 
     }
@@ -125,6 +133,9 @@ const keys = {
     w: {
         pressed:false
     },
+    s: {
+        pressed:false
+    },
     ArrowRight:{
         pressed:false
     },
@@ -133,7 +144,11 @@ const keys = {
     },
     ArrowUp:{
         pressed:false
+    },
+    ArrowDown: {
+        pressed:false
     }
+    
 }
 
 
@@ -153,19 +168,24 @@ function animate() {
     enemy.velocity.x = 0
     
     //player movement
-    if(keys.a.pressed && player.lastKey === 'a')
+    if(keys.a.pressed)
     {
+
         if(player.position.x >=10){
             player.velocity.x = -5
-            player.switchSprite('run_sx')
+            
+            if(keys.s.pressed) player.switchSprite('roll_dx')
+            else player.switchSprite('run_sx')
         }
         
     }
-    else if (keys.d.pressed && player.lastKey === 'd')
+    else if (keys.d.pressed)
     {
         if(player.position.x + player.width <=canvas.width-10){
             player.velocity.x = 5
-            player.switchSprite('run_dx')
+            
+            if(keys.s.pressed) player.switchSprite('roll_sx')
+            else player.switchSprite('run_dx')
         }
         
     } else {
@@ -259,6 +279,9 @@ window.addEventListener('keydown', (event) => {
         case ' ':
             player.attack()
             break
+        case 's': 
+            keys.s.pressed=true;
+            break
 
         //enemy
         case 'ArrowRight': 
@@ -289,12 +312,20 @@ window.addEventListener('keyup', (event) => {
             keys.a.pressed=false
             break
 
+        case 's': 
+            keys.s.pressed=false
+            break
+
         case 'ArrowRight': 
             keys.ArrowRight.pressed=false
             break
         case 'ArrowLeft': 
             keys.ArrowLeft.pressed=false
-            break        
+            break 
+            
+        case 'ArrowDown': 
+            keys.ArrowDown.pressed=false
+            break 
     }
     console.log(event.key)
 })

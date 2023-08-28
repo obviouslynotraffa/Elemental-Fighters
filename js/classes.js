@@ -140,10 +140,16 @@ class Fighter extends Sprite {
             && this.framesCurrent  < this.sprites.attack_sx.framesMax -1) return  
             
         if(this.image === this.sprites.air_attack_dx.image
-                && this.framesCurrent  < this.sprites.air_attack_dx.framesMax -1) return
+            && this.framesCurrent  < this.sprites.air_attack_dx.framesMax -1) return
     
         if(this.image === this.sprites.air_attack_sx.image
-                && this.framesCurrent  < this.sprites.air_attack_sx.framesMax -1) return    
+            && this.framesCurrent  < this.sprites.air_attack_sx.framesMax -1) return  
+                
+        if(this.image === this.sprites.roll_dx.image
+            && this.framesCurrent  < this.sprites.roll_dx.framesMax -1) return 
+
+        if(this.image === this.sprites.roll_sx.image
+            && this.framesCurrent  < this.sprites.roll_sx.framesMax -1) return
 
         switch(sprite){
 
@@ -251,6 +257,23 @@ class Fighter extends Sprite {
                 if(this.image !== this.sprites.air_attack_sx.image){
                     this.image = this.sprites.air_attack_sx.image
                     this.framesMax = this.sprites.air_attack_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break 
+
+
+            case "roll_dx":
+                if(this.image !== this.sprites.roll_dx.image){
+                    this.image = this.sprites.roll_dx.image
+                    this.framesMax = this.sprites.roll_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break 
+
+            case "roll_sx":
+                if(this.image !== this.sprites.roll_sx.image){
+                    this.image = this.sprites.roll_sx.image
+                    this.framesMax = this.sprites.roll_sx.framesMax
                     this.framesCurrent = 0
                 }
                 break 
