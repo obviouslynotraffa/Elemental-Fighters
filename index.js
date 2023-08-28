@@ -155,13 +155,19 @@ function animate() {
     //player movement
     if(keys.a.pressed && player.lastKey === 'a')
     {
-        player.velocity.x = -5
-        player.switchSprite('run_sx')
+        if(player.position.x >=10){
+            player.velocity.x = -5
+            player.switchSprite('run_sx')
+        }
+        
     }
     else if (keys.d.pressed && player.lastKey === 'd')
     {
-        player.velocity.x = 5
-        player.switchSprite('run_dx')
+        if(player.position.x + player.width <=canvas.width-10){
+            player.velocity.x = 5
+            player.switchSprite('run_dx')
+        }
+        
     } else {
         //to do: switch based on enemy postion
         player.switchSprite('idle_dx')
