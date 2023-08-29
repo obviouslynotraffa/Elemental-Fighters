@@ -96,6 +96,14 @@ const player = new Fighter({
         roll_sx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/roll.png',
             framesMax: 6
+        },
+        defend_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/defend.png',
+            framesMax: 8
+        },
+        defend_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/defend.png',
+            framesMax: 8
         }
 
     }
@@ -188,6 +196,9 @@ function animate() {
             else player.switchSprite('run_dx')
         }
         
+    } else if(keys.s.pressed){
+        player.switchSprite('defend_dx')
+
     } else {
         //to do: switch based on enemy postion
         player.switchSprite('idle_dx')
