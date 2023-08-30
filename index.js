@@ -252,7 +252,7 @@ function animate() {
     //player movement
     if(keys.a.pressed)
     {
-
+  
         if(player.position.x >=10){
             player.velocity.x = -5
             
@@ -303,7 +303,7 @@ function animate() {
     if(keys.ArrowRight.pressed)
     {
 
-        if(enemy.position.x >=10){
+        if(enemy.position.x + enemy.width <=canvas.width-10){
             enemy.velocity.x = 5
             
             if(keys.ArrowDown.pressed) enemy.switchSprite('roll_dx')
@@ -313,7 +313,7 @@ function animate() {
     }
     else if (keys.ArrowLeft.pressed)
     {
-        if(enemy.position.x + enemy.width <=canvas.width-10){
+        if(enemy.position.x >= 10){
             enemy.velocity.x = -5
             
             if(keys.ArrowDown.pressed) enemy.switchSprite('roll_sx')
