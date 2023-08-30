@@ -126,6 +126,80 @@ const enemy = new Fighter({
     offset: {
         x: -50,
         y: 0
+    },
+    imageSrc : './assets/fighters/ground_fighter/full_PNG/Left/idle.png',
+    framesMax: 6,
+    scale: 2.6,
+    offset: {
+        x: 330,
+        y: 165
+    },
+    sprites: {
+        idle_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/idle.png',
+            framesMax: 6 
+        },
+        idle_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/idle.png',
+            framesMax: 6 
+        },
+        run_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/run.png',
+            framesMax: 8 
+        },
+        run_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/run.png',
+            framesMax: 8 
+        },
+        jump_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/jump.png',
+            framesMax: 3 
+        },
+        jump_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/jump.png',
+            framesMax: 3 
+        },
+        fall_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/fall.png',
+            framesMax: 3 
+        },
+        fall_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/fall.png',
+            framesMax: 3 
+        },
+        attack_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/attack.png',
+            framesMax: 6 
+        },
+        attack_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/attack.png',
+            framesMax: 6 
+        },
+        air_attack_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/air_attack.png',
+            framesMax: 7 
+        },
+        air_attack_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/air_attack.png',
+            framesMax: 7 
+        },
+        roll_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/roll.png',
+            framesMax: 6
+        },
+        roll_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/roll.png',
+            framesMax: 6
+        },
+        defend_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/defend.png',
+            framesMax: 13
+        },
+        defend_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/defend.png',
+            framesMax: 13
+        }
+
     }
 })
 
@@ -170,7 +244,7 @@ function animate() {
     c.fillRect(0,0, canvas.width, canvas.height)
     background.update()
     player.update()
-    //enemy.update()
+    enemy.update()
 
     player.velocity.x = 0
     enemy.velocity.x = 0
@@ -226,13 +300,50 @@ function animate() {
 
 
     //enemy movement
-    if(keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft')
+    if(keys.ArrowRight.pressed)
     {
-        enemy.velocity.x = -5
+
+        if(enemy.position.x >=10){
+            enemy.velocity.x = 5
+            
+            if(keys.ArrowDown.pressed) enemy.switchSprite('roll_dx')
+            else enemy.switchSprite('run_dx')
+        }
+        
     }
-    else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight')
+    else if (keys.ArrowLeft.pressed)
     {
-        enemy.velocity.x = 5
+        if(enemy.position.x + enemy.width <=canvas.width-10){
+            enemy.velocity.x = -5
+            
+            if(keys.ArrowDown.pressed) enemy.switchSprite('roll_sx')
+            else enemy.switchSprite('run_sx')
+        }
+        
+    } else if(keys.ArrowDown.pressed){
+        enemy.switchSprite('defend_dx')
+
+    } else {
+        //to do: switch based on enemy postion
+        enemy.switchSprite('idle_sx')
+    }
+
+    //jumping
+    if(enemy.velocity.y < 0 && enemy.lastKey === "ArrowLeft"){
+        enemy.switchSprite('jump_sx')
+    } else if (enemy.velocity.y < 0 && enemy.lastKey === "ArrowRight") {
+        enemy.switchSprite('jump_dx')
+    } else if (enemy.velocity.y < 0) {
+        enemy.switchSprite('jump_sx')
+    }
+
+    //falling
+    if(enemy.velocity.y > 0 && enemy.lastKey === "ArrowLeft"){
+        enemy.switchSprite('fall_sx')
+    } else if (enemy.velocity.y > 0 && enemy.lastKey === "ArrowRight") {
+        enemy.switchSprite('fall_dx')
+    } else if (enemy.velocity.y > 0) {
+        enemy.switchSprite('fall_sx')
     }
 
 
@@ -285,7 +396,7 @@ window.addEventListener('keydown', (event) => {
         case 'w':
             keys.w.pressed=true;
             if(player.velocity.y === 0)
-            player.velocity.y = -18
+                player.velocity.y = -18
             break
         case ' ':
             player.attack()
@@ -305,11 +416,15 @@ window.addEventListener('keydown', (event) => {
             break
         case 'ArrowUp':
             keys.ArrowUp.pressed=true;
-            enemy.velocity.y = -18
+            if(enemy.velocity.y === 0)
+                enemy.velocity.y = -18
             break
         case 'ArrowDown':
+            keys.ArrowDown.pressed = true
+            break    
+        case '0':
             enemy.attack()
-            break       
+            break
     }
     console.log(event.key)
 })
