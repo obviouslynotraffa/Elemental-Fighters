@@ -256,7 +256,13 @@ function animate() {
         if(player.position.x >=10){
             player.velocity.x = -5
             
-            if(keys.s.pressed) player.switchSprite('roll_dx')
+            if(keys.s.pressed)
+            {
+                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+                    player.switchSprite('roll_dx')
+                else    
+                    player.switchSprite('roll_sx')
+            } 
             else player.switchSprite('run_sx')
         }
         
@@ -266,16 +272,28 @@ function animate() {
         if(player.position.x + player.width <=canvas.width-10){
             player.velocity.x = 5
             
-            if(keys.s.pressed) player.switchSprite('roll_sx')
+            if(keys.s.pressed){
+
+                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+                    player.switchSprite('roll_dx')
+                else    
+                    player.switchSprite('roll_sx')
+            }
             else player.switchSprite('run_dx')
         }
         
     } else if(keys.s.pressed){
-        player.switchSprite('defend_dx')
+        if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+            player.switchSprite('defend_dx')
+        else
+            player.switchSprite('defend_sx')
 
     } else {
-        //to do: switch based on enemy postion
-        player.switchSprite('idle_dx')
+
+        if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+            player.switchSprite('idle_dx')
+        else
+            player.switchSprite('idle_sx')
     }
 
 
@@ -302,30 +320,47 @@ function animate() {
     //enemy movement
     if(keys.ArrowRight.pressed)
     {
-
         if(enemy.position.x + enemy.width <=canvas.width-10){
             enemy.velocity.x = 5
             
-            if(keys.ArrowDown.pressed) enemy.switchSprite('roll_dx')
+            if(keys.ArrowDown.pressed)
+            {
+                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                    enemy.switchSprite('roll_dx')
+                else    
+                    enemy.switchSprite('roll_sx')
+            }
             else enemy.switchSprite('run_dx')
         }
-        
     }
     else if (keys.ArrowLeft.pressed)
     {
         if(enemy.position.x >= 10){
             enemy.velocity.x = -5
             
-            if(keys.ArrowDown.pressed) enemy.switchSprite('roll_sx')
+            if(keys.ArrowDown.pressed){
+                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                    enemy.switchSprite('roll_dx')
+                else    
+                    enemy.switchSprite('roll_sx')
+            }
             else enemy.switchSprite('run_sx')
         }
         
     } else if(keys.ArrowDown.pressed){
-        enemy.switchSprite('defend_dx')
-
+        
+        if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+            enemy.switchSprite('defend_dx')
+        else    
+            enemy.switchSprite('defend_sx')
+    
     } else {
-        //to do: switch based on enemy postion
-        enemy.switchSprite('idle_sx')
+
+        if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+            enemy.switchSprite('idle_dx')
+        else    
+            enemy.switchSprite('idle_sx')
+       
     }
 
     //jumping
@@ -399,7 +434,10 @@ window.addEventListener('keydown', (event) => {
                 player.velocity.y = -18
             break
         case ' ':
-            player.attack()
+            if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+                player.attack_right()
+            else    
+                player.attack_left()
             break
         case 's': 
             keys.s.pressed=true;
@@ -423,7 +461,10 @@ window.addEventListener('keydown', (event) => {
             keys.ArrowDown.pressed = true
             break    
         case '0':
-            enemy.attack()
+            if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                enemy.attack_right()
+            else    
+                enemy.attack_left()
             break
     }
     console.log(event.key)
