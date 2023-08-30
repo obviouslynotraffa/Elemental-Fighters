@@ -424,42 +424,51 @@ window.addEventListener('keydown', (event) => {
             keys.d.pressed=true
             player.lastKey = 'd'
             break
+
         case 'a': 
             keys.a.pressed=true;
             player.lastKey = 'a'
             break
+
         case 'w':
             keys.w.pressed=true;
             if(player.velocity.y === 0)
                 player.velocity.y = -18
             break
+
         case ' ':
             if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                 player.attack_right()
             else    
                 player.attack_left()
             break
+
         case 's': 
             keys.s.pressed=true;
             break
 
+            
         //enemy
         case 'ArrowRight': 
             keys.ArrowRight.pressed=true
             enemy.lastKey = 'ArrowRight'
             break
+
         case 'ArrowLeft': 
             keys.ArrowLeft.pressed=true;
             enemy.lastKey = 'ArrowLeft'
             break
+
         case 'ArrowUp':
             keys.ArrowUp.pressed=true;
             if(enemy.velocity.y === 0)
                 enemy.velocity.y = -18
             break
+
         case 'ArrowDown':
             keys.ArrowDown.pressed = true
-            break    
+            break  
+
         case '0':
             if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                 enemy.attack_right()
@@ -472,9 +481,11 @@ window.addEventListener('keydown', (event) => {
 
 window.addEventListener('keyup', (event) => {
     switch (event.key) {
+
         case 'd': 
             keys.d.pressed=false
             break
+
         case 'a': 
             keys.a.pressed=false
             break
