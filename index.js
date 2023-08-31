@@ -106,6 +106,14 @@ const player = new Fighter({
             framesMax: 8
         }
 
+    },
+    attackBox: {
+        offset: {
+            x: 50,
+            y: 50
+        },
+        width: 50,
+        height: 50
     }
 
     
@@ -131,7 +139,7 @@ const enemy = new Fighter({
     framesMax: 6,
     scale: 2.6,
     offset: {
-        x: 330,
+        x: 350,
         y: 165
     },
     sprites: {
@@ -200,6 +208,14 @@ const enemy = new Fighter({
             framesMax: 13
         }
 
+    },
+    attackBox: {
+        offset: {
+            x:50,
+            y:50
+        },
+        width: 50 ,
+        height: 50
     }
 })
 
@@ -316,6 +332,24 @@ function animate() {
     }
 
 
+    if(!fighterOnTheRight({
+        fighter1: player,
+        fighter2: enemy
+    })){
+        player.invertAttackBox()
+    } else{
+        player.resetAttackBox()
+    }
+
+    if(fighterOnTheRight({
+        fighter1: enemy,
+        fighter2: player
+    })){
+        enemy.resetAttackBox()
+    } else{
+        enemy.invertAttackBox()
+    }
+
 
     //enemy movement
     if(keys.ArrowRight.pressed)
@@ -380,6 +414,7 @@ function animate() {
     } else if (enemy.velocity.y > 0) {
         enemy.switchSprite('fall_sx')
     }
+
 
 
     //collision

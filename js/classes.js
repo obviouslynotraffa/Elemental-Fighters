@@ -53,7 +53,17 @@ class Sprite {
 
 
 class Fighter extends Sprite {
-    constructor({position, velocity, color, imageSrc, scale = 1, framesMax = 1, offset = {x:0, y:0}, sprites}) {
+    constructor({
+        position, 
+        velocity, 
+        color, 
+        imageSrc, 
+        scale = 1, 
+        framesMax = 1, 
+        offset = {x:0, y:0}, 
+        sprites, 
+        attackBox = { offset: {}, width: undefined, height: undefined}
+    }) {
 
         super({
             position,
@@ -72,9 +82,9 @@ class Fighter extends Sprite {
                 x: this.position.x ,
                 y: this.position.y
             } ,
-            offset: offset,
-            width:100 ,
-            height:50 
+            offset: attackBox.offset,
+            width: attackBox.width ,
+            height: attackBox.height 
         }
         this.color = color
         this.isAttacking
@@ -85,6 +95,7 @@ class Fighter extends Sprite {
         this.framesHold = 7
 
         this.sprites = sprites
+        this.ATboxChanged = false
 
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
@@ -94,6 +105,23 @@ class Fighter extends Sprite {
         
     }
 
+
+    invertAttackBox(){
+        if(!this.ATboxChanged){
+            this.attackBox.offset.x = -(this.attackBox.width + this.attackBox.offset.x) + this.width
+            this.ATboxChanged = true
+        }
+        
+    }
+
+    resetAttackBox(){
+        
+        this.attackBox.offset.x = this.width - 1
+        //this.attackBox.width = 51
+        this.ATboxChanged = false
+
+    }
+
     
     update() {
         this.draw()
@@ -101,7 +129,10 @@ class Fighter extends Sprite {
         this.animateFrames()
         
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
-        this.attackBox.position.y = this.position.y
+        this.attackBox.position.y = this.position.y + this.attackBox.offset.y
+
+        c.fillRect(this.attackBox.position.x, this.attackBox.position.y, this.attackBox.width, this.attackBox.height )
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
