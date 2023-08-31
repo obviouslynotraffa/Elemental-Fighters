@@ -109,7 +109,7 @@ const player = new Fighter({
     },
     attackBox: {
         offset: {
-            x: 50,
+            x: 65,
             y: 50
         },
         width: 50,
@@ -214,7 +214,7 @@ const enemy = new Fighter({
             x:50,
             y:50
         },
-        width: 50 ,
+        width: 75 ,
         height: 50
     }
 })
@@ -332,6 +332,8 @@ function animate() {
     }
 
 
+
+    //swap attackBox
     if(!fighterOnTheRight({
         fighter1: player,
         fighter2: enemy
