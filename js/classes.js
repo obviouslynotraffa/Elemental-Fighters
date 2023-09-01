@@ -98,6 +98,7 @@ class Fighter extends Sprite {
         this.sprites = sprites
         this.ATboxChanged = false
         this.attack = attack
+        this.dead = false
 
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
@@ -123,15 +124,31 @@ class Fighter extends Sprite {
 
     }
 
-    takeDamage(damage){
+    takeDamageLeft(damage){
         this.health -= damage
+
+        if(this.health <= 0){
+            this.switchSprite('death_sx')
+        } else
+        this.switchSprite('take_hit_sx')
+
+    }
+
+    takeDamageRight(damage){
+        this.health -= damage
+
+        if(this.health <= 0){
+            this.switchSprite('death_dx')
+        }else
+        this.switchSprite('take_hit_dx')
     }
 
     
     update() {
         this.draw()
 
-        this.animateFrames()
+        if(!this.dead)
+            this.animateFrames()
         
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y + this.attackBox.offset.y
@@ -174,12 +191,19 @@ class Fighter extends Sprite {
     }
 
 
-    receiveDamage(damage){
-        this.health -= damage 
-    }
-
-
     switchSprite(sprite){
+
+        if(this.image === this.sprites.death_dx.image){
+            if (this.framesCurrent === this.sprites.death_dx.framesMax -1)
+                this.dead = true
+            return
+        }
+
+        if(this.image === this.sprites.death_sx.image){
+            if (this.framesCurrent === this.sprites.death_sx.framesMax -1)
+                this.dead = true
+            return
+        }
 
         if(this.image === this.sprites.attack_dx.image
             && this.framesCurrent  < this.sprites.attack_dx.framesMax -1) return
@@ -332,7 +356,7 @@ class Fighter extends Sprite {
                 }
                 break 
 
-                case "defend_dx":
+            case "defend_dx":
                 if(this.image !== this.sprites.defend_dx.image){
                     this.image = this.sprites.defend_dx.image
                     this.framesMax = this.sprites.defend_dx.framesMax
@@ -340,7 +364,7 @@ class Fighter extends Sprite {
                 }
                 break
 
-                case "defend_sx":
+            case "defend_sx":
                 if(this.image !== this.sprites.defend_sx.image){
                     this.image = this.sprites.defend_sx.image
                     this.framesMax = this.sprites.defend_sx.framesMax
@@ -348,7 +372,7 @@ class Fighter extends Sprite {
                 }
                 break
 
-                case "take_hit_dx":
+            case "take_hit_dx":
                 if(this.image !== this.sprites.take_hit_dx.image){
                     this.image = this.sprites.take_hit_dx.image
                     this.framesMax = this.sprites.take_hit_dx.framesMax
@@ -356,10 +380,27 @@ class Fighter extends Sprite {
                 }
                 break
 
-                case "take_hit_sx":
+            case "take_hit_sx":
                 if(this.image !== this.sprites.take_hit_sx.image){
                     this.image = this.sprites.take_hit_sx.image
                     this.framesMax = this.sprites.take_hit_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+            case "death_dx":
+                if(this.image !== this.sprites.death_dx.image){
+                    this.image = this.sprites.death_dx.image
+                    this.framesMax = this.sprites.death_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+
+            case "death_sx":
+                if(this.image !== this.sprites.death_sx.image){
+                    this.image = this.sprites.death_sx.image
+                    this.framesMax = this.sprites.death_sx.framesMax
                     this.framesCurrent = 0
                 }
                 break
