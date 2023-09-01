@@ -522,9 +522,11 @@ animate()
 
 //events
 window.addEventListener('keydown', (event) => {
+
+    //player
+    if(!player.dead)
     switch (event.key) {
 
-        //player
         case 'd': 
             keys.d.pressed=true
             player.lastKey = 'd'
@@ -551,7 +553,11 @@ window.addEventListener('keydown', (event) => {
         case 's': 
             keys.s.pressed=true;
             break
+    }
 
+
+    if(!enemy.dead){
+        switch(event.key) {
             
         //enemy
         case 'ArrowRight': 
@@ -581,6 +587,8 @@ window.addEventListener('keydown', (event) => {
                 enemy.attack_left()
             break
     }
+    }
+    
     console.log(event.key)
 })
 
