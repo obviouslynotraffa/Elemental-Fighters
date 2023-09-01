@@ -424,7 +424,8 @@ function animate() {
         rectangle1: player,
         rectangle2: enemy
     }) &&
-        player.isAttacking){
+        player.isAttacking && player.framesCurrent === 2
+        ){
         player.isAttacking = false 
         if(enemy.health>0)enemy.health -= 20   
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
@@ -434,10 +435,19 @@ function animate() {
         rectangle1: enemy,
         rectangle2: player
     }) &&
-        enemy.isAttacking){
+        enemy.isAttacking && enemy.framesCurrent == 2){
         enemy.isAttacking = false    
         if(player.health>0)player.health -= 20   
         document.querySelector('#playerHealth').style.width = player.health + '%'
+    }
+
+
+    if(player.isAttacking && player.framesCurrent === 2){
+        player.isAttacking = false
+    }
+
+    if(enemy.isAttacking && enemy.framesCurrent === 2){
+        enemy.isAttacking = false
     }
 
 
