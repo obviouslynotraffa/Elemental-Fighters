@@ -62,7 +62,8 @@ class Fighter extends Sprite {
         framesMax = 1, 
         offset = {x:0, y:0}, 
         sprites, 
-        attackBox = { offset: {}, width: undefined, height: undefined}
+        attackBox = { offset: {}, width: undefined, height: undefined},
+        attack
     }) {
 
         super({
@@ -96,6 +97,7 @@ class Fighter extends Sprite {
 
         this.sprites = sprites
         this.ATboxChanged = false
+        this.attack = attack
 
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
@@ -119,6 +121,10 @@ class Fighter extends Sprite {
         this.attackBox.offset.x = this.width - 1
         this.ATboxChanged = false
 
+    }
+
+    takeDamage(damage){
+        this.health -= damage
     }
 
     
@@ -168,6 +174,11 @@ class Fighter extends Sprite {
     }
 
 
+    receiveDamage(damage){
+        this.health -= damage 
+    }
+
+
     switchSprite(sprite){
 
         if(this.image === this.sprites.attack_dx.image
@@ -187,6 +198,12 @@ class Fighter extends Sprite {
 
         if(this.image === this.sprites.roll_sx.image
             && this.framesCurrent  < this.sprites.roll_sx.framesMax -1) return
+
+        if(this.image === this.sprites.take_hit_dx.image
+            && this.framesCurrent  < this.sprites.take_hit_dx.framesMax -1) return    
+
+        if(this.image === this.sprites.take_hit_sx.image
+            && this.framesCurrent  < this.sprites.take_hit_sx.framesMax -1) return
 
         switch(sprite){
 
@@ -327,6 +344,22 @@ class Fighter extends Sprite {
                 if(this.image !== this.sprites.defend_sx.image){
                     this.image = this.sprites.defend_sx.image
                     this.framesMax = this.sprites.defend_sx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+                case "take_hit_dx":
+                if(this.image !== this.sprites.take_hit_dx.image){
+                    this.image = this.sprites.take_hit_dx.image
+                    this.framesMax = this.sprites.take_hit_dx.framesMax
+                    this.framesCurrent = 0
+                }
+                break
+
+                case "take_hit_sx":
+                if(this.image !== this.sprites.take_hit_sx.image){
+                    this.image = this.sprites.take_hit_sx.image
+                    this.framesMax = this.sprites.take_hit_sx.framesMax
                     this.framesCurrent = 0
                 }
                 break

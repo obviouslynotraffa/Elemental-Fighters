@@ -40,6 +40,7 @@ const player = new Fighter({
         x: 330,
         y: 167
     },
+    attack: 20,
     sprites: {
         idle_dx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/idle.png',
@@ -104,6 +105,14 @@ const player = new Fighter({
         defend_sx: {
             imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/defend.png',
             framesMax: 8
+        },
+        take_hit_dx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Right/take_hit.png',
+            framesMax: 6
+        },
+        take_hit_sx: {
+            imageSrc: './assets/fighters/wind_fighter/full_PNG/Left/take_hit.png',
+            framesMax: 6
         }
 
     },
@@ -135,6 +144,7 @@ const enemy = new Fighter({
         x: -50,
         y: 0
     },
+    attack: 5,
     imageSrc : './assets/fighters/ground_fighter/full_PNG/Left/idle.png',
     framesMax: 6,
     scale: 2.6,
@@ -206,6 +216,14 @@ const enemy = new Fighter({
         defend_sx: {
             imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/defend.png',
             framesMax: 13
+        },
+        take_hit_dx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Right/take_hit.png',
+            framesMax: 6
+        },
+        take_hit_sx: {
+            imageSrc: './assets/fighters/ground_fighter/full_PNG/Left/take_hit.png',
+            framesMax: 6
         }
 
     },
@@ -427,7 +445,19 @@ function animate() {
         player.isAttacking && player.framesCurrent === 2
         ){
         player.isAttacking = false 
-        if(enemy.health>0)enemy.health -= 20   
+        if(enemy.health>0){
+            
+            enemy.takeDamage(player.attack)
+            if(fighterOnTheRight({
+                fighter1: player,
+                fighter2: enemy
+            })){
+                enemy.switchSprite('take_hit_sx')
+            }
+            else{
+                enemy.switchSprite('take_hit_dx')
+            }
+        }
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
 
@@ -437,7 +467,18 @@ function animate() {
     }) &&
         enemy.isAttacking && enemy.framesCurrent == 2){
         enemy.isAttacking = false    
-        if(player.health>0)player.health -= 20   
+        if(player.health>0){
+            player.takeDamage(enemy.attack)   
+            if(fighterOnTheRight({
+                fighter1: enemy,
+                fighter2: player
+            })){
+                player.switchSprite('take_hit_sx')
+            }
+            else{
+                player.switchSprite('take_hit_dx')
+            }
+        }
         document.querySelector('#playerHealth').style.width = player.health + '%'
     }
 
