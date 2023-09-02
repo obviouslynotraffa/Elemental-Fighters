@@ -306,7 +306,7 @@ function animate() {
         if(player.position.x >=10){
             player.velocity.x = -5
             
-            if(keys.s.pressed)
+            if(keys.s.pressed && player.velocity.y === 0)
             {
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.switchSprite('roll_dx')
@@ -322,7 +322,7 @@ function animate() {
         if(player.position.x + player.width <=canvas.width-10){
             player.velocity.x = 5
             
-            if(keys.s.pressed){
+            if(keys.s.pressed && player.velocity.y === 0){
 
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.switchSprite('roll_dx')
@@ -393,7 +393,7 @@ function animate() {
         if(enemy.position.x + enemy.width <=canvas.width-10){
             enemy.velocity.x = 5
             
-            if(keys.ArrowDown.pressed)
+            if(keys.ArrowDown.pressed && enemy.velocity.y === 0)
             {
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.switchSprite('roll_dx')
@@ -408,7 +408,7 @@ function animate() {
         if(enemy.position.x >= 10){
             enemy.velocity.x = -5
             
-            if(keys.ArrowDown.pressed){
+            if(keys.ArrowDown.pressed && enemy.velocity.y === 0){
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.switchSprite('roll_dx')
                 else    
