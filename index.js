@@ -33,7 +33,7 @@ const player = new Fighter({
         x: 0,
         y: 0
     },
-    imageSrc : './assets/fighters/wind_fighter/full_png/idle.png',
+    imageSrc : './assets/fighters/wind_fighter/full_png/Right/idle.png',
     framesMax: 8,
     scale: 2.5,
     offset: {
@@ -152,7 +152,7 @@ const enemy = new Fighter({
         x: -50,
         y: 0
     },
-    attack: 5,
+    attack: 20,
     imageSrc : './assets/fighters/ground_fighter/full_png/Left/idle.png',
     framesMax: 6,
     scale: 2.6,
@@ -462,16 +462,30 @@ function animate() {
         ){
         player.isAttacking = false 
         if(enemy.health>0){
-            
+
             if(!fighterOnTheRight({
                 fighter1: player,
                 fighter2: enemy
             })){
-                enemy.takeDamageRight(player.attack)
+                
+                if(keys.ArrowDown.pressed)
+                    enemy.health -= player.attack/5
+                else    
+                    enemy.health -= player.attack
+
+                enemy.takeDamageRight()
             }
             else{
-                enemy.takeDamageLeft(player.attack)
+                
+                if(keys.ArrowDown.pressed)
+                    enemy.health -= player.attack/5
+                else    
+                    enemy.health -= player.attack
+                
+                enemy.takeDamageLeft()
             }
+
+            
         }
         document.querySelector('#enemyHealth').style.width = enemy.health + '%'
     }
@@ -490,10 +504,20 @@ function animate() {
                 fighter1: enemy,
                 fighter2: player
             })){
-                player.takeDamageRight(enemy.attack)
+                if(keys.s.pressed)
+                    player.health -= enemy.attack/5
+                else    
+                    player.health -= enemy.attack
+
+                player.takeDamageRight()
             }
             else{
-                player.takeDamageLeft(enemy.attack)
+                if(keys.s.pressed)
+                    player.health -= enemy.attack/5
+                else    
+                    player.health -= enemy.attack
+
+                player.takeDamageLeft()
             }
         }
         document.querySelector('#playerHealth').style.width = player.health + '%'

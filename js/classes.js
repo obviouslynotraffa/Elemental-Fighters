@@ -124,23 +124,22 @@ class Fighter extends Sprite {
 
     }
 
-    takeDamageLeft(damage){
-        this.health -= damage
-
-        if(this.health <= 0){
+    takeDamageLeft(){
+        
+        if(this.health <= 0)
             this.switchSprite('death_sx')
-        } else
-        this.switchSprite('take_hit_sx')
 
+        if(!(keys.ArrowDown.pressed || keys.s.pressed))
+            this.switchSprite('take_hit_sx')
     }
 
-    takeDamageRight(damage){
-        this.health -= damage
-
-        if(this.health <= 0){
+    takeDamageRight(){
+        
+        if(this.health <= 0)
             this.switchSprite('death_dx')
-        }else
-        this.switchSprite('take_hit_dx')
+
+        if(!(keys.ArrowDown.pressed || keys.s.pressed))
+            this.switchSprite('take_hit_dx')
     }
 
     
