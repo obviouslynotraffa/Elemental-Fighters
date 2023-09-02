@@ -172,21 +172,25 @@ class Fighter extends Sprite {
 
     attack_right(){
 
-        if(this.velocity.y !== 0){
-            this.switchSprite('air_attack_dx')
-        } else {
+        
+
+        if(this.velocity.y === 0)
             this.switchSprite('attack_dx')
-        }
+
+        if(this.velocity.y < 0)
+            this.switchSprite('air_attack_dx')
+
         this.isAttacking = true  
     }
 
     attack_left(){
 
-        if(this.velocity.y !== 0){
-            this.switchSprite('air_attack_sx')
-        } else {
+        if(this.velocity.y === 0)
             this.switchSprite('attack_sx')
-        }
+
+        if(this.velocity.y < 0)
+            this.switchSprite('air_attack_sx')
+
         this.isAttacking = true   
     }
 

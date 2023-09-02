@@ -129,7 +129,7 @@ const player = new Fighter({
             x: 65,
             y: 50
         },
-        width: 50,
+        width: 60,
         height: 50
     }
 
@@ -248,7 +248,7 @@ const enemy = new Fighter({
             x:50,
             y:50
         },
-        width: 75 ,
+        width: 65 ,
         height: 50
     }
 })
