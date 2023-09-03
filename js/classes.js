@@ -98,6 +98,7 @@ class Fighter extends Sprite {
         this.sprites = sprites
         this.ATboxChanged = false
         this.attack = attack
+        this.isRolling = false
         this.dead = false
 
         for(const sprite in this.sprites ){

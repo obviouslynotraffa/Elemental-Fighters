@@ -308,6 +308,9 @@ function animate() {
             
             if(keys.s.pressed && player.velocity.y === 0)
             {
+
+                player.isRolling = true
+
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.switchSprite('roll_dx')
                 else    
@@ -324,6 +327,8 @@ function animate() {
             
             if(keys.s.pressed && player.velocity.y === 0){
 
+                player.isRolling = true
+
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.switchSprite('roll_dx')
                 else    
@@ -333,6 +338,7 @@ function animate() {
         }
         
     } else if(keys.s.pressed){
+
         if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
             player.switchSprite('defend_dx')
         else
@@ -395,6 +401,8 @@ function animate() {
             
             if(keys.ArrowDown.pressed && enemy.velocity.y === 0)
             {
+                enemy.isRolling = true
+
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.switchSprite('roll_dx')
                 else    
@@ -409,6 +417,9 @@ function animate() {
             enemy.velocity.x = -5
             
             if(keys.ArrowDown.pressed && enemy.velocity.y === 0){
+
+                enemy.isRolling = true
+
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.switchSprite('roll_dx')
                 else    
@@ -532,7 +543,14 @@ function animate() {
         enemy.isAttacking = false
     }
 
+    if(player.isRolling && player.framesCurrent === 4){
+        player.isRolling = false
+    }
 
+    if(enemy.isRolling && enemy.framesCurrent === 4){
+        enemy.isRolling = false
+    }
+        
     //game over
     if (enemy.health <= 0 || player.health <= 0){
         determineWinner({player,enemy, timerID})
@@ -568,10 +586,12 @@ window.addEventListener('keydown', (event) => {
             break
 
         case ' ':
-            if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
-                player.attack_right()
-            else    
-                player.attack_left()
+            if(!player.isRolling){
+                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+                    player.attack_right()
+                else    
+                    player.attack_left()
+            }
             break
 
         case 's': 
@@ -605,10 +625,12 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
-                enemy.attack_right()
-            else    
-                enemy.attack_left()
+            if(!enemy.isRolling){
+                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                    enemy.attack_right()
+                else                
+                    enemy.attack_left()
+            }
             break
     }
     }
