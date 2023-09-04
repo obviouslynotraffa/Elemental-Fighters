@@ -500,7 +500,9 @@ function animate() {
 
             
         }
-        document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+        gsap.to('#enemyHealth', {
+            width: enemy.health + '%'
+        }) 
     }
 
 
@@ -535,7 +537,10 @@ function animate() {
                 player.takeDamageLeft()
             }
         }
-        document.querySelector('#playerHealth').style.width = player.health + '%'
+
+        gsap.to('#playerHealth', {
+            width: player.health + '%'
+        }) 
     }
 
 
