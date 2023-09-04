@@ -158,7 +158,7 @@ const enemy = new Fighter({
     scale: 2.6,
     offset: {
         x: 350,
-        y: 165
+        y: 160
     },
     sprites: {
         idle_dx: {
@@ -474,6 +474,8 @@ function animate() {
         player.isAttacking = false 
         if(enemy.health>0){
 
+            enemy.gotHit = true
+
             if(!fighterOnTheRight({
                 fighter1: player,
                 fighter2: enemy
@@ -510,7 +512,9 @@ function animate() {
         enemy.isAttacking && enemy.framesCurrent == 2){
         enemy.isAttacking = false    
         if(player.health>0){
-            
+
+            player.gotHit = true
+
             if(!fighterOnTheRight({
                 fighter1: enemy,
                 fighter2: player
@@ -550,6 +554,14 @@ function animate() {
     if(enemy.isRolling && enemy.framesCurrent === 4){
         enemy.isRolling = false
     }
+
+    if(player.gotHit && player.framesCurrent === 4){
+        player.gotHit = false
+    }
+
+    if(enemy.gotHit && enemy.framesCurrent === 4){
+        enemy.gotHit = false
+    }
         
     //game over
     if (enemy.health <= 0 || player.health <= 0){
@@ -586,7 +598,7 @@ window.addEventListener('keydown', (event) => {
             break
 
         case ' ':
-            if(!player.isRolling){
+            if(!player.isRolling && !player.gotHit){
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.attack_right()
                 else    
@@ -625,7 +637,7 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(!enemy.isRolling){
+            if(!enemy.isRolling && !enemy.gotHit){
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.attack_right()
                 else                
