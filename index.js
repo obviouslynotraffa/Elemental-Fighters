@@ -562,7 +562,8 @@ function animate() {
     if(enemy.gotHit && enemy.framesCurrent === 4){
         enemy.gotHit = false
     }
-        
+
+    
     //game over
     if (enemy.health <= 0 || player.health <= 0){
         determineWinner({player,enemy, timerID})
@@ -598,7 +599,7 @@ window.addEventListener('keydown', (event) => {
             break
 
         case ' ':
-            if(!player.isRolling && !player.gotHit){
+            if(!player.isRolling && !player.gotHit && !(player.velocity.y > 0)){
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.attack_right()
                 else    
