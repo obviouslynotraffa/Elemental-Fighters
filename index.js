@@ -337,7 +337,7 @@ function animate() {
             else player.switchSprite('run_dx')
         }
         
-    } else if(keys.s.pressed){
+    } else if(keys.s.pressed && player.velocity.y === 0){
 
         player.isParrying = true
 
@@ -430,7 +430,7 @@ function animate() {
             else enemy.switchSprite('run_sx')
         }
         
-    } else if(keys.ArrowDown.pressed){
+    } else if(keys.ArrowDown.pressed && enemy.velocity.y === 0){
 
         enemy.isParrying = true
         
@@ -485,7 +485,7 @@ function animate() {
                 fighter2: enemy
             })){
                 
-                if(keys.ArrowDown.pressed)
+                if(enemy.isParrying)
                     enemy.health -= player.attack/5
                 else    
                     enemy.health -= player.attack
@@ -494,7 +494,7 @@ function animate() {
             }
             else{
                 
-                if(keys.ArrowDown.pressed)
+                if(enemy.isParrying)
                     enemy.health -= player.attack/5
                 else    
                     enemy.health -= player.attack
@@ -525,7 +525,7 @@ function animate() {
                 fighter1: enemy,
                 fighter2: player
             })){
-                if(keys.s.pressed)
+                if(player.isParrying)
                     player.health -= enemy.attack/5
                 else    
                     player.health -= enemy.attack
@@ -533,7 +533,7 @@ function animate() {
                 player.takeDamageRight()
             }
             else{
-                if(keys.s.pressed)
+                if(player.isParrying)
                     player.health -= enemy.attack/5
                 else    
                     player.health -= enemy.attack
@@ -576,7 +576,8 @@ function animate() {
         player.isParrying = false
 
     if(!keys.ArrowDown.pressed)
-        player.isParrying = false
+        enemy.isParrying = false
+
 
     
     //game over
