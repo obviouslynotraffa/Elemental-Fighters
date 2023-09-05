@@ -654,7 +654,7 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(!enemy.isRolling && !enemy.gotHit){
+            if(!enemy.isRolling && !enemy.gotHit && !(enemy.velocity.y > 0)){
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.attack_right()
                 else                
