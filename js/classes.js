@@ -103,6 +103,7 @@ class Fighter extends Sprite {
         this.gotHit = false
         this.dead = false
         this.deathAnimation = false
+        this.attackAnimationElapsed = true
         this.isParrying = false
 
         for(const sprite in this.sprites ){
@@ -182,7 +183,8 @@ class Fighter extends Sprite {
 
     attack_right(){
 
-        
+        this.isAttacking = true  
+        this.attackAnimationElapsed = false
 
         if(this.velocity.y === 0)
             this.switchSprite('attack_dx')
@@ -190,10 +192,13 @@ class Fighter extends Sprite {
         if(this.velocity.y < 0)
             this.switchSprite('air_attack_dx')
 
-        this.isAttacking = true  
+        
     }
 
     attack_left(){
+
+        this.isAttacking = true   
+        this.attackAnimationElapsed = false
 
         if(this.velocity.y === 0)
             this.switchSprite('attack_sx')
@@ -201,7 +206,7 @@ class Fighter extends Sprite {
         if(this.velocity.y < 0)
             this.switchSprite('air_attack_sx')
 
-        this.isAttacking = true   
+        
     }
 
 
@@ -250,6 +255,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.idle_dx.image
                     this.framesMax = this.sprites.idle_dx.framesMax
                     this.framesCurrent = 0
+                    this.attackAnimationElapsed = true
                 }
                 break
 
@@ -259,6 +265,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.idle_sx.image
                     this.framesMax = this.sprites.idle_sx.framesMax
                     this.framesCurrent = 0
+                    this.attackAnimationElapsed = true
                 }
                 break
 
@@ -342,6 +349,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.air_attack_dx.image
                     this.framesMax = this.sprites.air_attack_dx.framesMax
                     this.framesCurrent = 0
+                    this.attackAnimationElapsed = true
                 }
                 break 
 
@@ -350,6 +358,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.air_attack_sx.image
                     this.framesMax = this.sprites.air_attack_sx.framesMax
                     this.framesCurrent = 0
+                    this.attackAnimationElapsed = true
                 }
                 break 
 

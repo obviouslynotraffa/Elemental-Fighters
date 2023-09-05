@@ -300,7 +300,7 @@ function animate() {
     enemy.velocity.x = 0
     
     //player movement
-    if(keys.a.pressed)
+    if((keys.a.pressed && player.attackAnimationElapsed) || (keys.a.pressed && player.velocity.y > 0 ))
     {
   
         if(player.position.x >=10){
@@ -320,7 +320,7 @@ function animate() {
         }
         
     }
-    else if (keys.d.pressed)
+    else if ((keys.d.pressed && player.attackAnimationElapsed) || (keys.d.pressed && player.velocity.y > 0 ))
     {
         if(player.position.x + player.width <=canvas.width-10){
             player.velocity.x = 5
@@ -396,7 +396,7 @@ function animate() {
 
 
     //enemy movement
-    if(keys.ArrowRight.pressed)
+    if((keys.ArrowRight.pressed && enemy.attackAnimationElapsed) || (keys.ArrowRight.pressed && enemy.velocity.y > 0 ))
     {
         if(enemy.position.x + enemy.width <=canvas.width-10){
             enemy.velocity.x = 5
@@ -413,7 +413,7 @@ function animate() {
             else enemy.switchSprite('run_dx')
         }
     }
-    else if (keys.ArrowLeft.pressed)
+    else if ((keys.ArrowLeft.pressed && enemy.attackAnimationElapsed) || (keys.ArrowLeft.pressed && enemy.velocity.y > 0 ))
     {
         if(enemy.position.x >= 10){
             enemy.velocity.x = -5
@@ -610,12 +610,12 @@ window.addEventListener('keydown', (event) => {
 
         case 'w':
             keys.w.pressed=true;
-            if(player.velocity.y === 0)
+            if(player.velocity.y === 0 && player.attackAnimationElapsed)
                 player.velocity.y = -18
             break
 
         case ' ':
-            if(!player.isRolling && !player.gotHit && !(player.velocity.y > 0)){
+            if(!player.isRolling && !player.gotHit && !(player.velocity.y > 0) && player.attackAnimationElapsed){
                 if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
                     player.attack_right()
                 else    
@@ -645,7 +645,7 @@ window.addEventListener('keydown', (event) => {
 
         case 'ArrowUp':
             keys.ArrowUp.pressed=true;
-            if(enemy.velocity.y === 0)
+            if(enemy.velocity.y === 0 && enemy.attackAnimationElapsed)
                 enemy.velocity.y = -18
             break
 
@@ -654,7 +654,7 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(!enemy.isRolling && !enemy.gotHit && !(enemy.velocity.y > 0)){
+            if(!enemy.isRolling && !enemy.gotHit && !(enemy.velocity.y > 0) && enemy.attackAnimationElapsed){
                 if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
                     enemy.attack_right()
                 else                
