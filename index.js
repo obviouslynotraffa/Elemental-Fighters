@@ -584,7 +584,7 @@ animate()
 window.addEventListener('keydown', (event) => {
 
     //player
-    if(!player.dead)
+    if(!player.deathAnimation)
     switch (event.key) {
 
         case 'd': 
@@ -618,7 +618,7 @@ window.addEventListener('keydown', (event) => {
     }
 
 
-    if(!enemy.dead){
+    if(!enemy.deathAnimation){
         switch(event.key) {
             
         //enemy

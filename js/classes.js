@@ -101,6 +101,7 @@ class Fighter extends Sprite {
         this.isRolling = false
         this.gotHit = false
         this.dead = false
+        this.deathAnimation = false
 
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
@@ -128,8 +129,11 @@ class Fighter extends Sprite {
 
     takeDamageLeft(){
         
-        if(this.health <= 0)
+        if(this.health <= 0){
             this.switchSprite('death_sx')
+            this.deathAnimation = true
+        }
+            
 
         if(!(keys.ArrowDown.pressed || keys.s.pressed))
             this.switchSprite('take_hit_sx')
@@ -137,8 +141,11 @@ class Fighter extends Sprite {
 
     takeDamageRight(){
         
-        if(this.health <= 0)
+        if(this.health <= 0){
             this.switchSprite('death_dx')
+            this.deathAnimation = true
+        }
+            
 
         if(!(keys.ArrowDown.pressed || keys.s.pressed))
             this.switchSprite('take_hit_dx')
