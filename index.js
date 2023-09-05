@@ -339,6 +339,8 @@ function animate() {
         
     } else if(keys.s.pressed){
 
+        player.isParrying = true
+
         if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
             player.switchSprite('defend_dx')
         else
@@ -429,6 +431,8 @@ function animate() {
         }
         
     } else if(keys.ArrowDown.pressed){
+
+        enemy.isParrying = true
         
         if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
             enemy.switchSprite('defend_dx')
@@ -567,6 +571,12 @@ function animate() {
     if(enemy.gotHit && enemy.framesCurrent === 4){
         enemy.gotHit = false
     }
+
+    if(!keys.s.pressed)
+        player.isParrying = false
+
+    if(!keys.ArrowDown.pressed)
+        player.isParrying = false
 
     
     //game over

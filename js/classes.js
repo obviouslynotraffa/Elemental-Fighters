@@ -96,12 +96,14 @@ class Fighter extends Sprite {
         this.framesHold = 7
 
         this.sprites = sprites
+
         this.ATboxChanged = false
         this.attack = attack
         this.isRolling = false
         this.gotHit = false
         this.dead = false
         this.deathAnimation = false
+        this.isParrying = false
 
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
@@ -135,7 +137,7 @@ class Fighter extends Sprite {
         }
             
 
-        if(!(keys.ArrowDown.pressed || keys.s.pressed))
+        if(!this.isParrying)
             this.switchSprite('take_hit_sx')
     }
 
@@ -147,7 +149,7 @@ class Fighter extends Sprite {
         }
             
 
-        if(!(keys.ArrowDown.pressed || keys.s.pressed))
+        if(!this.isParrying)
             this.switchSprite('take_hit_dx')
     }
 
