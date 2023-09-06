@@ -9,6 +9,7 @@ c.fillRect(0,0, canvas.width, canvas.height);
 
 //global
 const gravity = 0.7
+let playerIsOnTheLeft = true
 
 const background = new Sprite({
     position: {
@@ -298,57 +299,71 @@ function animate() {
 
     player.velocity.x = 0
     enemy.velocity.x = 0
+
+
+    //check sprite facing
+    if(player.position.x < enemy.position.x){
+        playerIsOnTheLeft = true
+    }
+    else playerIsOnTheLeft = false
     
+
+
     //player movement
-    if((keys.a.pressed && player.attackAnimationElapsed) || (keys.a.pressed && player.velocity.y > 0 ))
+    if(keys.a.pressed && (player.canMove() || player.isFalling()))
     {
-  
-        if(player.position.x >=10){
+        //go left
+        if(player.checkLeftBorder())
+        {
             player.velocity.x = -5
             
-            if(keys.s.pressed && player.velocity.y === 0)
+            //rolling
+            if(keys.s.pressed && player.isOnTheGround())
             {
-
                 player.isRolling = true
 
-                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
-                    player.switchSprite('roll_dx')
-                else    
-                    player.switchSprite('roll_sx')
-            } 
-            else player.switchSprite('run_sx')
-        }
-        
-    }
-    else if ((keys.d.pressed && player.attackAnimationElapsed) || (keys.d.pressed && player.velocity.y > 0 ))
-    {
-        if(player.position.x + player.width <=canvas.width-10){
-            player.velocity.x = 5
-            
-            if(keys.s.pressed && player.velocity.y === 0){
-
-                player.isRolling = true
-
-                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
-                    player.switchSprite('roll_dx')
-                else    
+                if(playerIsOnTheLeft)
+                    player.switchSprite('roll_dx') 
+                else
                     player.switchSprite('roll_sx')
             }
-            else player.switchSprite('run_dx')
+            else
+                player.switchSprite('run_sx')
+        }
+    }
+    else if (keys.d.pressed && (player.canMove() || player.isFalling())){
+
+        //go right
+        if(player.checkRightBorder())
+        {
+            player.velocity.x = 5
+            
+            //rolling
+            if(keys.s.pressed && player.isOnTheGround())
+            {
+                player.isRolling = true
+
+                if(playerIsOnTheLeft)
+                    player.switchSprite('roll_dx')
+                else
+                    player.switchSprite('roll_sx')
+            }
+            else
+                player.switchSprite('run_dx')
         }
         
-    } else if(keys.s.pressed && player.velocity.y === 0){
+    } else if(keys.s.pressed && player.isOnTheGround() && !player.isRolling){
 
         player.isParrying = true
 
-        if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+        if(playerIsOnTheLeft)
             player.switchSprite('defend_dx')
         else
             player.switchSprite('defend_sx')
 
     } else {
 
-        if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+        if(playerIsOnTheLeft)
             player.switchSprite('idle_dx')
         else
             player.switchSprite('idle_sx')
@@ -356,56 +371,39 @@ function animate() {
 
 
     //jumping
-    if(player.velocity.y < 0 && player.lastKey === "a"){
-        player.switchSprite('jump_sx')
-    } else if (player.velocity.y < 0 && player.lastKey === "d") {
-        player.switchSprite('jump_dx')
-    } else if (player.velocity.y < 0) {
-        player.switchSprite('jump_dx')
+    if(player.isJumping())
+    {
+        if(player.lastKey === "a")
+            player.switchSprite('jump_sx')
+        else
+            player.switchSprite('jump_dx')
     }
 
     //falling
-    if(player.velocity.y > 0 && player.lastKey === "a"){
-        player.switchSprite('fall_sx')
-    } else if (player.velocity.y > 0 && player.lastKey === "d") {
-        player.switchSprite('fall_dx')
-    } else if (player.velocity.y > 0) {
-        player.switchSprite('fall_dx')
-    }
-
-
-
-    //swap attackBox
-    if(!fighterOnTheRight({
-        fighter1: player,
-        fighter2: enemy
-    })){
-        player.invertAttackBox()
-    } else{
-        player.resetAttackBox()
-    }
-
-    if(fighterOnTheRight({
-        fighter1: enemy,
-        fighter2: player
-    })){
-        enemy.resetAttackBox()
-    } else{
-        enemy.invertAttackBox()
+    if(player.isFalling())
+    {
+        if(player.lastKey === "a"){
+            player.switchSprite('fall_sx')
+        }
+        else{
+            player.switchSprite('fall_dx')
+        }
     }
 
 
     //enemy movement
-    if((keys.ArrowRight.pressed && enemy.attackAnimationElapsed) || (keys.ArrowRight.pressed && enemy.velocity.y > 0 ))
+    if(keys.ArrowRight.pressed && (enemy.canMove() || enemy.isFalling() ))
     {
-        if(enemy.position.x + enemy.width <=canvas.width-10){
+        //go right
+        if(enemy.checkRightBorder())
+        {
             enemy.velocity.x = 5
             
-            if(keys.ArrowDown.pressed && enemy.velocity.y === 0)
+            if(keys.ArrowDown.pressed && enemy.isOnTheGround())
             {
                 enemy.isRolling = true
 
-                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                if(!playerIsOnTheLeft)
                     enemy.switchSprite('roll_dx')
                 else    
                     enemy.switchSprite('roll_sx')
@@ -413,16 +411,16 @@ function animate() {
             else enemy.switchSprite('run_dx')
         }
     }
-    else if ((keys.ArrowLeft.pressed && enemy.attackAnimationElapsed) || (keys.ArrowLeft.pressed && enemy.velocity.y > 0 ))
+    else if (keys.ArrowLeft.pressed && (enemy.canMove() || enemy.isFalling() ))
     {
-        if(enemy.position.x >= 10){
+        if(enemy.checkLeftBorder()){
             enemy.velocity.x = -5
             
-            if(keys.ArrowDown.pressed && enemy.velocity.y === 0){
+            if(keys.ArrowDown.pressed && enemy.isOnTheGround()){
 
                 enemy.isRolling = true
 
-                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+                if(!playerIsOnTheLeft)
                     enemy.switchSprite('roll_dx')
                 else    
                     enemy.switchSprite('roll_sx')
@@ -430,42 +428,42 @@ function animate() {
             else enemy.switchSprite('run_sx')
         }
         
-    } else if(keys.ArrowDown.pressed && enemy.velocity.y === 0){
+    } else if(keys.ArrowDown.pressed && enemy.isOnTheGround() && !enemy.isRolling){
 
         enemy.isParrying = true
         
-        if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+        if(!playerIsOnTheLeft)
             enemy.switchSprite('defend_dx')
         else    
             enemy.switchSprite('defend_sx')
     
     } else {
 
-        if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+        if(!playerIsOnTheLeft)
             enemy.switchSprite('idle_dx')
         else    
             enemy.switchSprite('idle_sx')
-       
     }
 
     //jumping
-    if(enemy.velocity.y < 0 && enemy.lastKey === "ArrowLeft"){
-        enemy.switchSprite('jump_sx')
-    } else if (enemy.velocity.y < 0 && enemy.lastKey === "ArrowRight") {
-        enemy.switchSprite('jump_dx')
-    } else if (enemy.velocity.y < 0) {
-        enemy.switchSprite('jump_sx')
+    if(enemy.isJumping())
+    {
+        if(enemy.lastKey === "ArrowLeft")
+            enemy.switchSprite('jump_sx')
+        else
+            enemy.switchSprite('jump_dx')
     }
 
     //falling
-    if(enemy.velocity.y > 0 && enemy.lastKey === "ArrowLeft"){
-        enemy.switchSprite('fall_sx')
-    } else if (enemy.velocity.y > 0 && enemy.lastKey === "ArrowRight") {
-        enemy.switchSprite('fall_dx')
-    } else if (enemy.velocity.y > 0) {
-        enemy.switchSprite('fall_sx')
+    if(enemy.isFalling())
+    {
+        if(enemy.lastKey === "ArrowLeft"){
+            enemy.switchSprite('fall_sx')
+        }
+        else{
+            enemy.switchSprite('fall_dx')
+        }
     }
-
 
 
     //player attack
@@ -480,11 +478,8 @@ function animate() {
 
             enemy.gotHit = true
 
-            if(!fighterOnTheRight({
-                fighter1: player,
-                fighter2: enemy
-            })){
-                
+            if(!playerIsOnTheLeft)
+            {   
                 if(enemy.isParrying)
                     enemy.health -= player.attack/5
                 else    
@@ -521,10 +516,8 @@ function animate() {
 
             player.gotHit = true
 
-            if(!fighterOnTheRight({
-                fighter1: enemy,
-                fighter2: player
-            })){
+            if(playerIsOnTheLeft)
+            {
                 if(player.isParrying)
                     player.health -= enemy.attack/5
                 else    
@@ -548,20 +541,23 @@ function animate() {
     }
 
 
+    //move attackBox based on facing
+    if(playerIsOnTheLeft){
+        player.resetAttackBox()
+        enemy.invertAttackBox()
+    }
+    else{
+        enemy.resetAttackBox()
+        player.invertAttackBox()
+    }
+
+
     if(player.isAttacking && player.framesCurrent === 2){
         player.isAttacking = false
     }
 
     if(enemy.isAttacking && enemy.framesCurrent === 2){
         enemy.isAttacking = false
-    }
-
-    if(player.isRolling && player.framesCurrent === 4){
-        player.isRolling = false
-    }
-
-    if(enemy.isRolling && enemy.framesCurrent === 4){
-        enemy.isRolling = false
     }
 
     if(player.gotHit && player.framesCurrent === 4){
@@ -615,8 +611,8 @@ window.addEventListener('keydown', (event) => {
             break
 
         case ' ':
-            if(!player.isRolling && !player.gotHit && !(player.velocity.y > 0) && player.attackAnimationElapsed){
-                if(fighterOnTheRight({fighter1: player, fighter2: enemy}))
+            if(player.canAttack()){
+                if(playerIsOnTheLeft)
                     player.attack_right()
                 else    
                     player.attack_left()
@@ -654,8 +650,8 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(!enemy.isRolling && !enemy.gotHit && !(enemy.velocity.y > 0) && enemy.attackAnimationElapsed){
-                if(fighterOnTheRight({fighter1: enemy, fighter2: player}))
+            if(enemy.canAttack()){
+                if(!playerIsOnTheLeft)
                     enemy.attack_right()
                 else                
                     enemy.attack_left()
