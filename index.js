@@ -606,12 +606,13 @@ window.addEventListener('keydown', (event) => {
 
         case 'w':
             keys.w.pressed=true;
-            if(player.velocity.y === 0 && player.attackAnimationElapsed)
+            if(player.isOnTheGround() && player.canMove())
                 player.velocity.y = -18
             break
 
         case ' ':
-            if(player.canAttack()){
+            if(player.canAttack())
+            {
                 if(playerIsOnTheLeft)
                     player.attack_right()
                 else    
@@ -641,7 +642,7 @@ window.addEventListener('keydown', (event) => {
 
         case 'ArrowUp':
             keys.ArrowUp.pressed=true;
-            if(enemy.velocity.y === 0 && enemy.attackAnimationElapsed)
+            if(enemy.isOnTheGround() && enemy.canMove())
                 enemy.velocity.y = -18
             break
 
@@ -650,7 +651,8 @@ window.addEventListener('keydown', (event) => {
             break  
 
         case '0':
-            if(enemy.canAttack()){
+            if(enemy.canAttack())
+            {
                 if(!playerIsOnTheLeft)
                     enemy.attack_right()
                 else                
