@@ -316,19 +316,7 @@ function animate() {
         if(player.checkLeftBorder())
         {
             player.velocity.x = -5
-            
-            //rolling
-            if(keys.s.pressed && player.isOnTheGround())
-            {
-                player.isRolling = true
-
-                if(playerIsOnTheLeft)
-                    player.switchSprite('roll_dx') 
-                else
-                    player.switchSprite('roll_sx')
-            }
-            else
-                player.switchSprite('run_sx')
+            player.switchSprite('run_sx')
         }
     }
     else if (keys.d.pressed && (player.canMove() || player.isFalling())){
@@ -337,19 +325,7 @@ function animate() {
         if(player.checkRightBorder())
         {
             player.velocity.x = 5
-            
-            //rolling
-            if(keys.s.pressed && player.isOnTheGround())
-            {
-                player.isRolling = true
-
-                if(playerIsOnTheLeft)
-                    player.switchSprite('roll_dx')
-                else
-                    player.switchSprite('roll_sx')
-            }
-            else
-                player.switchSprite('run_dx')
+            player.switchSprite('run_dx')
         }
         
     } else if(keys.s.pressed && player.isOnTheGround() && !player.isRolling){
@@ -390,6 +366,20 @@ function animate() {
         }
     }
 
+    //rolling
+    
+    if(player.isRolling){
+
+        if(player.lastKey === "d"){
+            if(player.checkRightBorder())
+                player.velocity.x = 10
+        }
+        
+        if(player.lastKey === "a"){
+            if(player.checkLeftBorder())
+                player.velocity.x = -10
+        }   
+    }
 
     //enemy movement
     if(keys.ArrowRight.pressed && (enemy.canMove() || enemy.isFalling() ))
@@ -398,34 +388,14 @@ function animate() {
         if(enemy.checkRightBorder())
         {
             enemy.velocity.x = 5
-            
-            if(keys.ArrowDown.pressed && enemy.isOnTheGround())
-            {
-                enemy.isRolling = true
-
-                if(!playerIsOnTheLeft)
-                    enemy.switchSprite('roll_dx')
-                else    
-                    enemy.switchSprite('roll_sx')
-            }
-            else enemy.switchSprite('run_dx')
+            enemy.switchSprite('run_dx')
         }
     }
     else if (keys.ArrowLeft.pressed && (enemy.canMove() || enemy.isFalling() ))
     {
         if(enemy.checkLeftBorder()){
             enemy.velocity.x = -5
-            
-            if(keys.ArrowDown.pressed && enemy.isOnTheGround()){
-
-                enemy.isRolling = true
-
-                if(!playerIsOnTheLeft)
-                    enemy.switchSprite('roll_dx')
-                else    
-                    enemy.switchSprite('roll_sx')
-            }
-            else enemy.switchSprite('run_sx')
+            enemy.switchSprite('run_sx')
         }
         
     } else if(keys.ArrowDown.pressed && enemy.isOnTheGround() && !enemy.isRolling){
@@ -464,6 +434,19 @@ function animate() {
             enemy.switchSprite('fall_dx')
         }
     }
+
+    //rolling
+    if(enemy.isRolling){
+        if(enemy.lastKey === "ArrowRight"){
+            if(enemy.checkRightBorder())
+                enemy.velocity.x = 10
+        }
+        else{
+            if(enemy.checkLeftBorder())
+                enemy.velocity.x = -10
+        }   
+    }
+
 
 
     //player attack
@@ -574,6 +557,11 @@ function animate() {
     if(!keys.ArrowDown.pressed)
         enemy.isParrying = false
 
+    if(player.isRolling && player.framesCurrent === 6)
+        player.isRolling = false
+
+    if(enemy.isRolling && enemy.framesCurrent === 6)
+        enemy.isRolling = false
 
     
     //game over
@@ -590,76 +578,79 @@ animate()
 //events
 window.addEventListener('keydown', (event) => {
 
+    
+
     //player
-    if(!player.deathAnimation)
-    switch (event.key) {
+    if(!player.deathAnimation && !player.isRolling){
+        switch (event.key) {
 
-        case 'd': 
-            keys.d.pressed=true
-            player.lastKey = 'd'
-            break
+            case 'd': 
+                keys.d.pressed=true
+                player.lastKey = 'd'
+                break
 
-        case 'a': 
-            keys.a.pressed=true;
-            player.lastKey = 'a'
-            break
+            case 'a': 
+                keys.a.pressed=true;
+                player.lastKey = 'a'
+                break
 
-        case 'w':
-            keys.w.pressed=true;
-            if(player.isOnTheGround() && player.canMove())
-                player.velocity.y = -18
-            break
+            case 'w':
+                keys.w.pressed=true;
+                if(player.isOnTheGround() && player.canMove())
+                    player.velocity.y = -18
+                break
 
-        case ' ':
-            if(player.canAttack())
-            {
-                if(playerIsOnTheLeft)
-                    player.attack_right()
-                else    
-                    player.attack_left()
-            }
-            break
+            case ' ':
+                if(player.canAttack())
+                {
+                    if(playerIsOnTheLeft)
+                        player.attack_right()
+                    else    
+                        player.attack_left()
+                }
+                break
 
-        case 's': 
-            keys.s.pressed=true;
-            break
+            case 's': 
+                keys.s.pressed=true;
+                break
+        }
     }
+    
 
-
-    if(!enemy.deathAnimation){
+    if(!enemy.deathAnimation && !enemy.isRolling){
         switch(event.key) {
             
-        //enemy
-        case 'ArrowRight': 
-            keys.ArrowRight.pressed=true
-            enemy.lastKey = 'ArrowRight'
-            break
+            //enemy
+            case 'ArrowRight': 
+                keys.ArrowRight.pressed=true
+                enemy.lastKey = 'ArrowRight'
+                break
 
-        case 'ArrowLeft': 
-            keys.ArrowLeft.pressed=true;
-            enemy.lastKey = 'ArrowLeft'
-            break
+            case 'ArrowLeft': 
+                keys.ArrowLeft.pressed=true;
+                enemy.lastKey = 'ArrowLeft'
+                break
 
-        case 'ArrowUp':
-            keys.ArrowUp.pressed=true;
-            if(enemy.isOnTheGround() && enemy.canMove())
-                enemy.velocity.y = -18
-            break
+            case 'ArrowUp':
+                keys.ArrowUp.pressed=true;
+                if(enemy.isOnTheGround() && enemy.canMove())
+                    enemy.velocity.y = -18
+                break
 
-        case 'ArrowDown':
-            keys.ArrowDown.pressed = true
-            break  
+            case 'ArrowDown':
+                keys.ArrowDown.pressed = true
+                break  
 
-        case '0':
-            if(enemy.canAttack())
-            {
-                if(!playerIsOnTheLeft)
-                    enemy.attack_right()
-                else                
-                    enemy.attack_left()
-            }
-            break
-    }
+            case '0':
+                if(enemy.canAttack())
+                {
+                    if(!playerIsOnTheLeft)
+                        enemy.attack_right()
+                    else                
+                        enemy.attack_left()
+                }
+                break
+        }
     }
     
     console.log(event.key)
@@ -683,6 +674,7 @@ window.addEventListener('keyup', (event) => {
         case 'ArrowRight': 
             keys.ArrowRight.pressed=false
             break
+
         case 'ArrowLeft': 
             keys.ArrowLeft.pressed=false
             break 
@@ -695,3 +687,75 @@ window.addEventListener('keyup', (event) => {
 })
 
 
+//double tap for rolling/dashing
+let ispressedPlayer
+let lastPressedPlayer
+let isDoublePressPlayer
+
+let ispressedEnemy
+let lastPressedEnemy
+let isDoublePressEnemy
+
+    
+const timeOutPlayer = () => setTimeout(() => isDoublePressPlayer = false, 400)
+const timeOutEnemy = () => setTimeout(() => isDoublePressEnemy = false, 400)
+
+const keyPress = key => {
+    ispressedPlayer = key.keyCode
+    ispressedEnemy = key.keyCode
+
+    //player double touch detection
+    if(ispressedPlayer === 68 || ispressedPlayer === 65){
+        if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer && !player.isAttacking) {
+            isDoublePressPlayer = false
+    
+    
+            if(player.isOnTheGround()){
+                player.isRolling = true
+    
+                if(player.lastKey === "d"){
+                    player.switchSprite('roll_dx')
+                }  
+                else if(player.lastKey === "a"){
+                    player.switchSprite('roll_sx')
+                }         
+            }
+            
+            
+        } else {
+            isDoublePressPlayer = true
+            timeOutPlayer()
+        }
+    
+        player.lastPressedPlayer = ispressedPlayer
+    }
+
+    //player double touch detection
+    if(ispressedEnemy === 37 || ispressedEnemy === 39){
+        if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy && !enemy.isAttacking) {
+            isDoublePressEnemy = false;
+    
+    
+            if(enemy.isOnTheGround()){
+                enemy.isRolling = true
+    
+                if(enemy.lastKey === "ArrowRight"){
+                    enemy.switchSprite('roll_dx')
+                }  
+                else if(enemy.lastKey === "ArrowLeft"){
+                    enemy.switchSprite('roll_sx')
+                }         
+            }
+            
+            
+        } else {
+            isDoublePressEnemy = true;
+            timeOutEnemy();
+        }
+    
+        enemy.lastPressedEnemy = ispressedEnemy;
+    }
+
+}
+
+window.onkeyup = key => keyPress(key)

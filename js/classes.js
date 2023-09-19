@@ -318,6 +318,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.run_dx.image
                     this.framesMax = this.sprites.run_dx.framesMax
                     this.framesCurrent = 0
+                    this.isRolling = false
                 }
                 break
 
@@ -327,6 +328,7 @@ class Fighter extends Sprite {
                     this.image = this.sprites.run_sx.image
                     this.framesMax = this.sprites.run_sx.framesMax
                     this.framesCurrent = 0
+                    this.isRolling = false
                 }
                 break
 
