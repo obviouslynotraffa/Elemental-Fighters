@@ -706,7 +706,7 @@ const keyPress = key => {
 
     //player double touch detection
     if(ispressedPlayer === 68 || ispressedPlayer === 65){
-        if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer && !player.isAttacking) {
+        if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer && player.attackAnimationElapsed) {
             isDoublePressPlayer = false
     
     
