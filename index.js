@@ -732,7 +732,7 @@ const keyPress = key => {
 
     //player double touch detection
     if(ispressedEnemy === 37 || ispressedEnemy === 39){
-        if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy && !enemy.isAttacking) {
+        if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy && enemy.attackAnimationElapsed) {
             isDoublePressEnemy = false;
     
     
