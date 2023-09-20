@@ -578,10 +578,10 @@ animate()
 //events
 window.addEventListener('keydown', (event) => {
 
-    
+    let timeIsUp = timerRunOut()
 
     //player
-    if(!player.deathAnimation && !player.isRolling){
+    if(!player.deathAnimation && !player.isRolling && !timeIsUp){
         switch (event.key) {
 
             case 'd': 
@@ -617,7 +617,7 @@ window.addEventListener('keydown', (event) => {
     }
     
 
-    if(!enemy.deathAnimation && !enemy.isRolling){
+    if(!enemy.deathAnimation && !enemy.isRolling && !timeIsUp){
         switch(event.key) {
             
             //enemy
@@ -705,7 +705,7 @@ const keyPress = key => {
     ispressedEnemy = key.keyCode
 
     //player double touch detection
-    if(ispressedPlayer === 68 || ispressedPlayer === 65){
+    if((ispressedPlayer === 68 || ispressedPlayer === 65) && !timeIsUp){
         if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer && player.canMove()) {
             isDoublePressPlayer = false
     
@@ -731,7 +731,7 @@ const keyPress = key => {
     }
 
     //player double touch detection
-    if(ispressedEnemy === 37 || ispressedEnemy === 39){
+    if((ispressedEnemy === 37 || ispressedEnemy === 39) && !timeIsUp){
         if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy && enemy.canMove()) {
             isDoublePressEnemy = false;
     

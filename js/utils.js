@@ -46,3 +46,10 @@ function decreseTimer() {
 function fighterOnTheRight({fighter1, fighter2}){
     return fighter1.position.x < fighter2.position.x
 }
+
+function timerRunOut(){
+    if(timer === 0)
+        return true
+
+    return false
+}
