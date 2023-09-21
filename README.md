@@ -5,9 +5,7 @@
 
 
 # Incipit
-Elemental fighters is a small 2D "mortal kombat style" game, playable only on the same keyboard (for the moment). Developed mainly for two reason:
-  - learning javascript (still trying)
-  - I love developing games
+Elemental fighters is a small 2D "mortal kombat style" game, playable only on the same keyboard (for the moment). Developed mainly for learning javascript and html canvas.
     
 This project has no great ambition, will be carried out in my free time. 
 
