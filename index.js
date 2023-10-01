@@ -439,11 +439,11 @@ function animate() {
     if(enemy.isRolling){
         if(enemy.lastKey === "ArrowRight"){
             if(enemy.checkRightBorder())
-                enemy.velocity.x = 10
+                enemy.velocity.x = 8
         }
         else{
             if(enemy.checkLeftBorder())
-                enemy.velocity.x = -10
+                enemy.velocity.x = -8
         }   
     }
 
@@ -557,10 +557,10 @@ function animate() {
     if(!keys.ArrowDown.pressed)
         enemy.isParrying = false
 
-    if(player.isRolling && player.framesCurrent === 6)
+    if(player.isRolling && player.framesCurrent === 5)
         player.isRolling = false
 
-    if(enemy.isRolling && enemy.framesCurrent === 6)
+    if(enemy.isRolling && enemy.framesCurrent === 5)
         enemy.isRolling = false
 
     
@@ -696,30 +696,38 @@ let ispressedEnemy
 let lastPressedEnemy
 let isDoublePressEnemy
 
+let enemyCanRoll = true
+let playerCanRoll = true
+
     
-const timeOutPlayer = () => setTimeout(() => isDoublePressPlayer = false, 400)
-const timeOutEnemy = () => setTimeout(() => isDoublePressEnemy = false, 400)
+const timeOutPlayer = () => setTimeout(() => isDoublePressPlayer = false, 300)
+const timeOutEnemy = () => setTimeout(() => isDoublePressEnemy = false, 300)
+
+const timeRollPlayer = () => setTimeout(() => playerCanRoll = true, 1000)
+const timeRollEnemy = () => setTimeout(() => enemyCanRoll = true, 1000)
 
 const keyPress = key => {
     ispressedPlayer = key.keyCode
     ispressedEnemy = key.keyCode
 
     //player double touch detection
-    if((ispressedPlayer === 68 || ispressedPlayer === 65) && !timeIsUp){
-        if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer && player.canMove()) {
+    if((ispressedPlayer === 68 || ispressedPlayer === 65) && player.canMove() && playerCanRoll){
+        if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer) {
+
             isDoublePressPlayer = false
-    
+            playerCanRoll = false
     
             if(player.isOnTheGround()){
                 player.isRolling = true
     
-                if(player.lastKey === "d"){
+                if(player.lastPressedPlayer === 68){
                     player.switchSprite('roll_dx')
                 }  
-                else if(player.lastKey === "a"){
+                else if(player.lastPressedPlayer === 65){
                     player.switchSprite('roll_sx')
                 }         
             }
+            timeRollPlayer()
             
             
         } else {
@@ -731,22 +739,23 @@ const keyPress = key => {
     }
 
     //player double touch detection
-    if((ispressedEnemy === 37 || ispressedEnemy === 39) && !timeIsUp){
-        if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy && enemy.canMove()) {
+    if((ispressedEnemy === 37 || ispressedEnemy === 39) && enemy.canMove() && enemyCanRoll){
+        if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy) {
+
             isDoublePressEnemy = false;
-    
+            enemyCanRoll = false;
     
             if(enemy.isOnTheGround()){
                 enemy.isRolling = true
     
-                if(enemy.lastKey === "ArrowRight"){
+                if(enemy.lastPressedEnemy === 39){
                     enemy.switchSprite('roll_dx')
                 }  
-                else if(enemy.lastKey === "ArrowLeft"){
+                else if(enemy.lastPressedEnemy === 37){
                     enemy.switchSprite('roll_sx')
                 }         
             }
-            
+            timeRollEnemy()
             
         } else {
             isDoublePressEnemy = true;
