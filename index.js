@@ -132,7 +132,9 @@ const player = new Fighter({
         },
         width: 60,
         height: 50
-    }
+    },
+    startLoopFrame: 1,
+    endLoopFrame: 4
 
     
 })
@@ -251,7 +253,9 @@ const enemy = new Fighter({
         },
         width: 65 ,
         height: 50
-    }
+    },
+    startLoopFrame: 3,
+    endLoopFrame: 9
 })
 
 

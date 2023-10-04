@@ -63,7 +63,9 @@ class Fighter extends Sprite {
         offset = {x:0, y:0}, 
         sprites, 
         attackBox = { offset: {}, width: undefined, height: undefined},
-        attack
+        attack,
+        startLoopFrame,
+        endLoopFrame
     }) {
 
         super({
@@ -106,12 +108,42 @@ class Fighter extends Sprite {
         this.attackAnimationElapsed = true
         this.isParrying = false
 
+        this.startLoopFrame = startLoopFrame
+        this.endLoopFrame = endLoopFrame
+
         for(const sprite in this.sprites ){
             sprites[sprite].image = new Image()
             sprites[sprite].image.src = sprites[sprite].imageSrc
         }
 
         
+    }
+
+    animateFrames(){
+        this.framesElapsed++
+
+        if(!this.isParrying){
+            if(this.framesElapsed % this.framesHold === 0){
+            
+            if(this.framesCurrent < this.framesMax - 1){
+                this.framesCurrent++
+            } else{
+                this.framesCurrent = 0
+            }
+            }
+        }
+        else{
+            
+            if(this.framesElapsed % this.framesHold === 0){
+            
+                if(this.framesCurrent < this.framesMax - this.endLoopFrame ){
+                    this.framesCurrent++
+                } else{
+                    this.framesCurrent = this.startLoopFrame
+                }
+            }
+        }
+
     }
 
 
