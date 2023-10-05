@@ -238,7 +238,7 @@ class Fighter extends Sprite {
             && this.attackAnimationElapsed
             && !this.gotHit
             && !this.isFalling()
-        
+            && !this.isParrying
     }
 
     canMove(){
