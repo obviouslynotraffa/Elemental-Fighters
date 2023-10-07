@@ -573,6 +573,14 @@ function animate() {
         determineWinner({player,enemy, timerID})
     }
 
+    if(enemy.health <= 0){
+        enemy.deathAnimation = true
+    }
+
+    if(player.health <= 0){
+        player.deathAnimation = true
+    }
+
 }
 
 
