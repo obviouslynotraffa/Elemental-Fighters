@@ -244,6 +244,7 @@ class Fighter extends Sprite {
     canMove(){
         return !this.gotHit
             && this.attackAnimationElapsed
+            && !this.deathAnimation
     }
 
     checkLeftBorder(){
