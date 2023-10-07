@@ -8,7 +8,7 @@ c.fillRect(0,0, canvas.width, canvas.height);
 
 
 //global
-const gravity = 0.7
+const gravity = 0.8
 let playerIsOnTheLeft = true
 
 const background = new Sprite({
