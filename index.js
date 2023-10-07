@@ -332,7 +332,7 @@ function animate() {
             player.switchSprite('run_dx')
         }
         
-    } else if(keys.s.pressed && player.isOnTheGround() && !player.isRolling){
+    } else if(keys.s.pressed && player.canParry()){
 
         player.isParrying = true
 
@@ -402,7 +402,7 @@ function animate() {
             enemy.switchSprite('run_sx')
         }
         
-    } else if(keys.ArrowDown.pressed && enemy.isOnTheGround() && !enemy.isRolling){
+    } else if(keys.ArrowDown.pressed && enemy.canParry()){
 
         enemy.isParrying = true
         
@@ -555,10 +555,10 @@ function animate() {
         enemy.gotHit = false
     }
 
-    if(!keys.s.pressed)
+    if(!keys.s.pressed || !(player.image === player.sprites.defend_dx.image || player.image === player.sprites.defend_sx.image))
         player.isParrying = false
 
-    if(!keys.ArrowDown.pressed)
+    if(!keys.ArrowDown.pressed || !(enemy.image === enemy.sprites.defend_dx.image || enemy.image === enemy.sprites.defend_sx.image))
         enemy.isParrying = false
 
     if(player.isRolling && player.framesCurrent === 5)

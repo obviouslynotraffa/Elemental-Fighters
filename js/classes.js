@@ -254,6 +254,11 @@ class Fighter extends Sprite {
         return this.position.x + this.width <= canvas.width-10
     }
 
+    canParry(){
+        return this.isOnTheGround
+            && !this.isRolling
+            && !this.isAttacking
+    }
 
 
     update() {
