@@ -599,10 +599,20 @@ function animate() {
     }
 
     if(enemy.health <= 0){
+        if(playerIsOnTheLeft)
+            enemy.switchSprite("death_sx")
+        else    
+            enemy.switchSprite("death_dx")
+
         enemy.deathAnimation = true
     }
 
     if(player.health <= 0){
+        if(playerIsOnTheLeft)
+            player.switchSprite("death_sx")
+        else    
+            player.switchSprite("death_dx")
+
         player.deathAnimation = true
     }
 
