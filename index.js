@@ -568,9 +568,34 @@ function animate() {
         enemy.isRolling = false
 
     
-    //game over
+    //game over for ko
     if (enemy.health <= 0 || player.health <= 0){
         determineWinner({player,enemy, timerID})
+    }
+
+    //game over for time
+    if(timerRunOut() && enemy.health > 0 && enemy.health > 0){
+
+        if(enemy.health > player.health){
+            
+            if(playerIsOnTheLeft)
+                player.switchSprite("death_dx")
+            else    
+                player.switchSprite("death_sx")
+
+            player.deathAnimation = true
+        }
+
+        if(enemy.health < player.health){
+            
+            if(playerIsOnTheLeft)
+                enemy.switchSprite("death_sx")
+            else    
+                enemy.switchSprite("death_dx")
+
+            enemy.deathAnimation = true
+        }
+        
     }
 
     if(enemy.health <= 0){
