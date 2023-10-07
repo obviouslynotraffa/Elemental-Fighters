@@ -155,7 +155,7 @@ const enemy = new Fighter({
         x: -50,
         y: 0
     },
-    attack: 20,
+    attack: 15,
     imageSrc : './assets/fighters/ground_fighter/full_png/Left/idle.png',
     framesMax: 6,
     scale: 2.6,
@@ -443,11 +443,11 @@ function animate() {
     if(enemy.isRolling){
         if(enemy.lastKey === "ArrowRight"){
             if(enemy.checkRightBorder())
-                enemy.velocity.x = 8
+                enemy.velocity.x = 6.5
         }
         else{
             if(enemy.checkLeftBorder())
-                enemy.velocity.x = -8
+                enemy.velocity.x = -6.5
         }   
     }
 
