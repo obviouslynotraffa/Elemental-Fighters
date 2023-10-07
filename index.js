@@ -748,7 +748,7 @@ const keyPress = key => {
     ispressedEnemy = key.keyCode
 
     //player double touch detection
-    if((ispressedPlayer === 68 || ispressedPlayer === 65) && player.canMove() && playerCanRoll){
+    if((ispressedPlayer === 68 || ispressedPlayer === 65) && player.canMove() && playerCanRoll && !timerRunOut()){
         if (isDoublePressPlayer && ispressedPlayer === player.lastPressedPlayer) {
 
             isDoublePressPlayer = false
@@ -775,8 +775,8 @@ const keyPress = key => {
         player.lastPressedPlayer = ispressedPlayer
     }
 
-    //player double touch detection
-    if((ispressedEnemy === 37 || ispressedEnemy === 39) && enemy.canMove() && enemyCanRoll){
+    //enemy double touch detection
+    if((ispressedEnemy === 37 || ispressedEnemy === 39) && enemy.canMove() && enemyCanRoll && !timerRunOut()){
         if (isDoublePressEnemy && ispressedEnemy === enemy.lastPressedEnemy) {
 
             isDoublePressEnemy = false;
