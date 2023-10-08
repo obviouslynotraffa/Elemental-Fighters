@@ -15,7 +15,7 @@ Any suggestion/issue/pull-request are appreciated.
 
 
 # How to play
-The game can be played here:
+The game can be played [here](https://obviouslynotraffa.github.io/Elemental-Fighters/)
 
 
 ### Comands for Player 1 on the left
