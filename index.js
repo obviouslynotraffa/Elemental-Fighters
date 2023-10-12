@@ -34,7 +34,7 @@ const player = new Fighter({
         x: 0,
         y: 0
     },
-    imageSrc : './assets/fighters/wind_fighter/full_png/Right/idle.png',
+    imageSrc : './assets/fighters/wind_fighter/full_png/right/idle.png',
     framesMax: 8,
     scale: 2.5,
     offset: {
@@ -44,83 +44,83 @@ const player = new Fighter({
     attack: 20,
     sprites: {
         idle_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/idle.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/idle.png',
             framesMax: 8 
         },
         idle_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/idle.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/idle.png',
             framesMax: 8 
         },
         run_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/run.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/run.png',
             framesMax: 8 
         },
         run_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/run.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/run.png',
             framesMax: 8 
         },
         jump_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/jump.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/jump.png',
             framesMax: 3 
         },
         jump_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/jump.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/jump.png',
             framesMax: 3 
         },
         fall_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/fall.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/fall.png',
             framesMax: 3 
         },
         fall_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/fall.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/fall.png',
             framesMax: 3 
         },
         attack_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/attack.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/attack.png',
             framesMax: 8 
         },
         attack_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/attack.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/attack.png',
             framesMax: 8 
         },
         air_attack_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/air_attack.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/air_attack.png',
             framesMax: 7 
         },
         air_attack_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/air_attack.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/air_attack.png',
             framesMax: 7 
         },
         roll_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/roll.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/roll.png',
             framesMax: 6
         },
         roll_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/roll.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/roll.png',
             framesMax: 6
         },
         defend_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/defend.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/defend.png',
             framesMax: 8
         },
         defend_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/defend.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/defend.png',
             framesMax: 8
         },
         take_hit_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/take_hit.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/take_hit.png',
             framesMax: 6
         },
         take_hit_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/take_hit.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/take_hit.png',
             framesMax: 6
         },
         death_dx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Right/death.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/right/death.png',
             framesMax: 19
         },
         death_sx: {
-            imageSrc: './assets/fighters/wind_fighter/full_png/Left/death.png',
+            imageSrc: './assets/fighters/wind_fighter/full_png/left/death.png',
             framesMax: 19
         }
 
@@ -156,7 +156,7 @@ const enemy = new Fighter({
         y: 0
     },
     attack: 15,
-    imageSrc : './assets/fighters/ground_fighter/full_png/Left/idle.png',
+    imageSrc : './assets/fighters/ground_fighter/full_png/left/idle.png',
     framesMax: 6,
     scale: 2.6,
     offset: {
@@ -165,83 +165,83 @@ const enemy = new Fighter({
     },
     sprites: {
         idle_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/idle.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/idle.png',
             framesMax: 6 
         },
         idle_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/idle.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/idle.png',
             framesMax: 6 
         },
         run_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/run.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/run.png',
             framesMax: 8 
         },
         run_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/run.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/run.png',
             framesMax: 8 
         },
         jump_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/jump.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/jump.png',
             framesMax: 3 
         },
         jump_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/jump.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/jump.png',
             framesMax: 3 
         },
         fall_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/fall.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/fall.png',
             framesMax: 3 
         },
         fall_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/fall.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/fall.png',
             framesMax: 3 
         },
         attack_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/attack.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/attack.png',
             framesMax: 6 
         },
         attack_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/attack.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/attack.png',
             framesMax: 6 
         },
         air_attack_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/air_attack.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/air_attack.png',
             framesMax: 7 
         },
         air_attack_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/air_attack.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/air_attack.png',
             framesMax: 7 
         },
         roll_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/roll.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/roll.png',
             framesMax: 6
         },
         roll_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/roll.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/roll.png',
             framesMax: 6
         },
         defend_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/defend.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/defend.png',
             framesMax: 13
         },
         defend_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/defend.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/defend.png',
             framesMax: 13
         },
         take_hit_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/take_hit.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/take_hit.png',
             framesMax: 6
         },
         take_hit_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/take_hit.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/take_hit.png',
             framesMax: 6
         },
         death_dx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Right/death.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/right/death.png',
             framesMax: 18
         },
         death_sx: {
-            imageSrc: './assets/fighters/ground_fighter/full_png/Left/death.png',
+            imageSrc: './assets/fighters/ground_fighter/full_png/left/death.png',
             framesMax: 18
         }
 
